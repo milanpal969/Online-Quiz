@@ -60,7 +60,7 @@ function Quiz() {
     return (
         <div>
             
-            {user ? <h2>Welcome, <span style={{cursor:"pointer"}} onClick={handlePermission}>{user.username}</span></h2> : <p>Loading user data...</p>}
+            {user ? <h2>Welcome, <span style={{cursor:"pointer"}} onClick={handlePermission}>{user.name}</span></h2> : <p>Loading user data...</p>}
             <button onClick={handleLogout}>Log Out</button>
         </div>
     );
