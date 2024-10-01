@@ -84,3 +84,13 @@ export const getCurrent = async () => {
   }
 }
 
+export const addQuestion = async (payload) => {
+
+  try{
+    const response = await axios.post('/api/v1/admin/add-question', payload);
+    return response;
+  }catch(e){
+    return e;
+  }
+}
+

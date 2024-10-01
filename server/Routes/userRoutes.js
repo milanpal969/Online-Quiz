@@ -77,6 +77,7 @@ router.post('/login', async (req, res) => {
 router.get('/get-current', Usermiddleware, async (req, res) => {
     try {
         const user = await User.findById(req.body.userId);
+        console.log(user);
 
         if (!user) {
             return res.status(404).json({

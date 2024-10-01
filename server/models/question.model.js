@@ -1,9 +1,13 @@
 const mongoose  = require('mongoose');
 
-const questionSchema = mongoose.model({
+const questionSchema = new mongoose.Schema({
 
     question:{
         type:String,
+        required:true
+    },
+    options:{
+        type:Array,
         required:true
     },
     answer:{

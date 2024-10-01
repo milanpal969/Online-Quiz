@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const userRoutes = require('./Routes/userRoutes.js');
+const quizRoutes = require('./Routes/quizRoutes.js');
 
 const dbConnect = require('./utils/db.js');  
 
@@ -17,6 +18,7 @@ app.use(cors({
 }));
 
 app.use('/api/v1/',userRoutes);
+app.use('/api/v1/admin',quizRoutes);
 
 dbConnect(); 
 
