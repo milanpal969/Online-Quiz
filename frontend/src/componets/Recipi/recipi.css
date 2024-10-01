@@ -1,0 +1,23 @@
+.container6{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: black;
+}
+input{
+    outline: none;
+    border-radius: 10px;
+    box-shadow: 3px 3px pink;
+    height: 30px;
+    width: 250px;
+}
+.menu{
+    display: flex;
+    gap: 10px;
+}
+
+.img{
+    height:300px;
+    width: 300px;
+}
+.contaier
