@@ -7,7 +7,6 @@ function Quiz() {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
 
-    // Fetch user data and handle authentication
 
     const handlePermission = () => {
 
@@ -21,12 +20,10 @@ function Quiz() {
         const token = localStorage.getItem('token');
         console.log(token);
         if (!token) {
-            // Redirect if no token found
             navigate('/login');
             return;
         }
 
-        // Fetch the current user
         const fetchCurrentUser = async () => {
             try {
                 const response = await getCurrent();
@@ -42,21 +39,18 @@ function Quiz() {
         };
 
         fetchCurrentUser();
-    }, [navigate]);  // Only run when the component mounts
+    }, [navigate]);  
 
-    // Handle user logout
     const handleLogout = () => {
         localStorage.removeItem('token');
         setUser(null);
         navigate('/login');
     };
 
-    // Handle errors
     if (error) {
         return <div>Error: {error.message}</div>;
     }
 
-    // Show a loading state before the user data is available
     return (
         <div>
             
