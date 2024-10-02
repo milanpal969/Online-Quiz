@@ -21,7 +21,6 @@ function Quiz() {
         const token = localStorage.getItem('token');
         console.log(token);
         if (!token) {
-            // Redirect if no token found
             navigate('/login');
             return;
         }

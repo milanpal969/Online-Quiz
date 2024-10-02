@@ -87,10 +87,28 @@ export const getCurrent = async () => {
 export const addQuestion = async (payload) => {
 
   try{
-    const response = await axios.post('/api/v1/admin/add-question', payload);
+    const response = await axios.post('/api/v1/quiz/add-question',payload,{
+      headers:{
+        'Authorization' : `Bearer ${localStorage.getItem('token')}`
+      }
+    });
     return response;
   }catch(e){
     return e;
+  }
+}
+
+export const getQuestions = async () => {
+
+  try{
+     const response = await axios.get('/api/v1/quiz/get-questions',{
+      headers:{
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+     });
+     return response;
+  }catch(e){
+    return response;
   }
 }
 

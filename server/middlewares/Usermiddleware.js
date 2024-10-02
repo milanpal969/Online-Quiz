@@ -3,7 +3,6 @@ const jsonwebtoken = require('jsonwebtoken');
 const Usermiddleware = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
-        console.log(authHeader);
 
         if (!authHeader) {
             return res.status(401).json({
@@ -12,7 +11,7 @@ const Usermiddleware = async (req, res, next) => {
             });
         }
 
-        const token = authHeader.split(' ')[1]; // Get the token part after 'Bearer'
+        const token = authHeader.split(' ')[1]; 
         
 
         if (!token) {
@@ -31,7 +30,7 @@ const Usermiddleware = async (req, res, next) => {
             });
         }
 
-        req.body.userId = verified.userId; // Attach userId to the request
+        req.body.userId = verified.userId; 
         next();
     } catch (e) {
         return res.status(403).json({

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { addQuestion } from './ApiCalls';
+import { getAllQuestions } from '../componets/getAllQuestions';
 
 function Admin() {
 
@@ -11,7 +12,7 @@ function Admin() {
   const [option,setoption] = useState('');
   const [loading,setloading] = useState(false);
   const [error,seterror] = useState(null);
-  const [data,setdata] = useState({});
+  const [data,setdata] = useState([]);
 
   const handleChange = (e) => {
 
@@ -40,7 +41,11 @@ function Admin() {
       const response = await addQuestion(input);
       if(response){
         setloading(false);
-        setdata(response.data);
+        setinput({
+          question:'',
+          options:[],
+          answer:''
+        });
       }
     }catch(e){
       setloading(false);
@@ -48,6 +53,23 @@ function Admin() {
     }
   }
 
+
+  useEffect(()=>{
+
+    const token = localStorage.getItem('token');
+        console.log(token);
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+        const getData = async () =>{
+    const response = await getAllQuestions();
+    if(response){
+      setdata(response.data.data);
+    }
+  }
+  getData();
+  },[])
   
 
   return (
@@ -61,11 +83,11 @@ function Admin() {
 
             <form style={{display:"flex",gap:"20px", justifyContent:"center"}} >
 
-            <textarea type='textarea' name='question' onChange={handleChange} placeholder='enter question' />
+            <textarea type='textarea' value={input.question} name='question' onChange={handleChange} placeholder='enter question' />
             
             <input name='options' value={option} onChange={handleOptionsChange} placeholder='enter options' />
             <button onClick={handleAddOption}>add option</button>
-            <input name='answer' onChange={handleChange} placeholder='enter answer A,B,C,D '/>
+            <input name='answer' value={input.answer} onChange={handleChange} placeholder='enter answer A,B,C,D '/>
           
             </form>
 
@@ -82,6 +104,19 @@ function Admin() {
             {
               loading ? 'Loading...' : ''
             }
+            <div>
+              {
+                data && <div>
+                  {
+                    data.map((question,index)=><div key={index}>
+                      <div>{question.question}</div>
+                      <div>{question.options.map((opt,idx)=><li key={idx}>{opt}</li>)}</div>
+                      <div>{question.answer}</div>
+                    </div>)
+                  }
+                </div>
+              }
+            </div>
         </div>
     </div>
   )
