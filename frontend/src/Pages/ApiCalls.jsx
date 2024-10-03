@@ -71,7 +71,6 @@ export const signup = async (payload) => {
 }
 
 export const getCurrent = async () => {
-  console.log(localStorage.getItem('token'));
   try{
     const response = await axios.get('/api/v1/get-current',{
       headers: {
@@ -112,3 +111,19 @@ export const getQuestions = async () => {
   }
 }
 
+
+export const deleteQuestion =  async (id) => {
+
+  try{
+    
+    const response = await axios.delete('/api/v1/quiz/delete-question',{
+      headers:{
+        "Authorization" : `Bearer ${localStorage.getItem('token')}`
+      },
+      data:{_id:id}
+    })
+    return response;
+  }catch(e){
+    return e.message
+  }
+}

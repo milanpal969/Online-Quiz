@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addQuestion } from './ApiCalls';
+import { addQuestion,deleteQuestion } from './ApiCalls';
 import { getAllQuestions } from '../componets/getAllQuestions';
 
 function Admin() {
@@ -69,8 +69,22 @@ function Admin() {
     }
   }
   getData();
-  },[])
-  
+  },[]);
+
+  const handleDelete = async (id) => {
+      setloading(true);
+    try{
+
+      const response = await deleteQuestion(id);
+      if(response){
+        setloading(false);
+        console.log(response.data.message);
+      }
+
+    }catch(e){
+      seterror(e);
+    }
+  }
 
   return (
     <div>
@@ -108,8 +122,9 @@ function Admin() {
               {
                 data && <div>
                   {
+                   
                     data.map((question,index)=><div key={index}>
-                      <div>{question.question}</div>
+                      <div>{question.question} <span><button onClick={()=>{handleDelete(question._id)}}>Delete</button></span></div>
                       <div>{question.options.map((opt,idx)=><li key={idx}>{opt}</li>)}</div>
                       <div>{question.answer}</div>
                     </div>)

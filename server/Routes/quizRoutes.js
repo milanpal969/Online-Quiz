@@ -55,6 +55,25 @@ router.get('/get-questions', Usermiddleware, async (req,res) => {
             message:e.message
         })
     }
+});
+
+router.delete('/delete-question',Usermiddleware, async (req,res) => {
+
+    try{
+        console.log(req.body._id);
+        const response = await Question.deleteOne({_id: req.body._id});
+        if(response){
+        res.status(201).send({
+            success:true,
+            message:"question deleted successfully",
+        });
+    }
+    }catch(e){
+        res.status(501).send({
+            success:false,
+            message:e.message
+        });
+    }
 })
 
 module.exports = router
